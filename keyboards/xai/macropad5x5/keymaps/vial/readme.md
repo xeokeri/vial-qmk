@@ -10,4 +10,4 @@ Flashing example for this keyboard:
 
 Vial Compile:
 
-    qmk compile -kb xai/macropad5x5/ansi -km default
+    qmk compile -kb xai/macropad5x5/ansi -km vial
