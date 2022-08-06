@@ -17,12 +17,14 @@
 #pragma once
 
 #include "config_common.h"
-#include "mcuconf.h"
-#include "halconf.h"
 
 #define VIAL_KEYBOARD_UID {0x57, 0xE5, 0xC6, 0xA2, 0xD8, 0x2F, 0xC1, 0x72}
 #define VIAL_UNLOCK_COMBO_ROWS { 0, 5 }
 #define VIAL_UNLOCK_COMBO_COLS { 0, 4 }
+
+#define ENCODERS_PAD_A { B13, B15, B4, B6, B1 }
+#define ENCODERS_PAD_B { B12, B14, B3, B5, B7 }
+#define ENCODER_RESOLUTION 5
 
 #define RGB_MATRIX_FRAMEBUFFER_EFFECTS
 #define RGB_MATRIX_KEYPRESSES

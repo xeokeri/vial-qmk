@@ -16,11 +16,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include QMK_KEYBOARD_H
 
-enum my_keycodes {
-    KC_MCON = SAFE_RANGE, // KC_MISSION_CONTROL
-    KC_LPAD // KC_LAUNCH_PAD
-};
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [0] = LAYOUT(
         _______, _______, KC_MPLY, _______, KC_MUTE,
@@ -41,66 +36,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 };
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-        case KC_MCON:
-            if (record->event.pressed) {
-                host_consumer_send(0x29F);
-            } else {
-                host_consumer_send(0);
-            }
-
-            return false; /* Skip all further processing of this key */
-
-        case KC_LPAD:
-            if (record->event.pressed) {
-                host_consumer_send(0x2A0);
-            } else {
-                host_consumer_send(0);
-            }
-
-            return false; /* Skip all further processing of this key */
-
-        default:
-            return true; /* Process all other keycodes normally */
-    }
-}
-
-bool encoder_update_user(uint8_t index, bool clockwise) {
-    switch (index) {
-    case 0:
-        if (clockwise) {
-            tap_code(KC_BRID);
-        } else {
-            tap_code(KC_BRIU);
-        }
-    case 1:
-        if (clockwise) {
-            tap_code(KC_BRMD);
-        } else {
-            tap_code(KC_BRMU);
-        }
-    case 2:
-        if (clockwise) {
-            tap_code(KC_MRWD);
-        } else {
-            tap_code(KC_MFFD);
-        }
-    case 3:
-        if (clockwise) {
-            tap_code(KC_PGUP);
-        } else {
-            tap_code(KC_PGDN);
-        }
-    case 4:
-        if (clockwise) {
-            tap_code(KC_VOLU);
-        } else {
-            tap_code(KC_VOLD);
-        }
-    default:
-        break;
-    }
-
-    return true;
-}
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
+    [0] = { ENCODER_CCW_CW(KC_BRID, KC_BRIU) },
+    [1] = { ENCODER_CCW_CW(KC_BRMD, KC_BRMU) },
+    [2] = { ENCODER_CCW_CW(KC_MRWD, KC_MFFD) },
+    [3] = { ENCODER_CCW_CW(KC_PGDN, KC_PGUP) },
+    [4] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
+};
